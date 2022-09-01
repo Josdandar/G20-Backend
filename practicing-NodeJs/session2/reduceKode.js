@@ -37,7 +37,7 @@ const nombres = [
     const objetoDeKoders = {} // lo hicieron vacio
   
     names.forEach((item, index) => {
-      objetoDeKoders[index] = {
+      objetoDeKoders[index] = { //con los brackets o . estoy agregando la propiedad aunque no exista aun 
         name: item,
         length: item.length,
         isGreaterThanFour: item.length > 3
@@ -98,14 +98,14 @@ const nombres = [
       // La acumulacioon de lo que estas retornan
   
       return {
-        ...accumulador, // spread operator
+        ...accumulador, // spread operator en primera iteracion esta vacio pero despues va agarrando lo de adentro y lo pone
         [indice]: {
           name: valorActual,
           length: valorActual.length,
           isGreaterThanFour: valorActual.length > 3
         }
       }
-    }, {})
+    }, {}) //los corchetes dan el tipo de valor que va a retornar
   }
   
   const nombresTransformados = transformarNombres(nombres)
