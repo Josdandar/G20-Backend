@@ -1,9 +1,9 @@
 const fs = require("fs")
-/*Fs es un objeto y tiene propiedades*/ 
+/*Fs es un objeto y tiene propiedades con funciones*/ 
 
 console.log("fs write", fs.writeFile)
 
-/*CRUD CON FILESYSTEM Y NODE*/
+/*CRUD CON FILESYSTEM EN NODE*/
 
 /*Crear un archivo con api de filesystem node*/ 
 fs.writeFile("text1.txt", "Archivo creado desde node", "utf8", (err) => {
@@ -18,21 +18,21 @@ fs.writeFile("text1.txt", "Archivo creado desde node", "utf8", (err) => {
 })
 
 /*Leer un archivo con la api de filesystem, se usa uft8 para que lo regrese en lenguaje humano*/ 
-fs.readFile("text1.txt","utf8", (err, data) =>{
-  if (err) throw err
+fs.readFile("text1.txt","utf8", (err, data) =>{ //se puede leer cualquier tipo de archivo 
+  if (err) throw err //se pone asi porque es inline conditioning , una sola linea 
   console.log(err)
-  console.log(data)
+  console.log(data) //data es lo que me va a leer 
 })
 
 /*Modificar un archivo con filesystem */
 /*Tambien se puede agregar codigo lol en un archivo*/ 
-fs.appendFile("text1.txt", "Esto se agrego desde filesystem.js", "utf8", (err) => {
+fs.appendFile("text1.txt", "\nEsto se agrego desde filesystem.js", "utf8", (err) => {
   if(err) {
-    console.log("err", err)
+    console.log("err", err);
     return
   }
 
-  console.log("Tu archivo fue actualizado con exito")
+  console.log("Tu archivo fue actualizado con exito");
 })
 
 

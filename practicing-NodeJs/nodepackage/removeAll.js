@@ -27,7 +27,7 @@ const path = "dir1"
 let counter = 0
 const removeAll = (path) => {
   //dir1/dir3/dir5
-  const content = fs.readdirSync(path, "utf-8")
+  const content = fs.readdirSync(path, "utf-8")//pide callback porque asi podemos manejar el error 
 
   content.forEach((file) => {
     const newPath = `${path}/${file}` 
