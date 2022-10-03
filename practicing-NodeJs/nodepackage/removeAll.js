@@ -34,7 +34,7 @@ const removeAll = (path) => {
     
     counter += 1 // Para ver cuando es carpeta
     // Checar si algunos de estos files es carpeta o no
-    const isDirectory = fs.statSync(`${path}/${file}`).isDirectory()
+    const isDirectory = fs.statSync(`${path}/${file}`).isDirectory()//esta funcion revisa si es directorio o no 
 
     // Si es Carpeta
     if(isDirectory) {

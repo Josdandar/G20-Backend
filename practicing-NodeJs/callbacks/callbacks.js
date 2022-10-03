@@ -1,66 +1,132 @@
-/*
-- Pedir informes 
-- Entrevista
-- Pagos
-- Inscripcion 
-*/
+/**
+ * 1 - Pedir informes
+ * 2 - Entrevista
+ * 3 - Pagar (becado)
+ * 4 - Inscripcion
+ */
 
-const koder = {
+/**
+ * 1 - Con callbacks
+ * 2 - Promises
+ * 
+ * Promificacion
+ */
+
+ const koder = {
     seDieronInformes: false,
     seEntrevisto: false,
     sePago: false,
     seInscribio: false,
-}
+};
 
-/*Crear funcion donde todas nuestras propiedades pasen a true */
+const darInformes = (koderAInformar, callback) => {
+    let error = null;
+    setTimeout(() => {
+        // Voy a darle informes al koder
+        koderAInformar.seDieronInformes = true;
 
-const darInformes = (koderADarInformes, callbackToHandle) => {
-    let error = null 
-    setTimeout(()=>{
-        //Darle informes al Koder
-        koderADarInformes.seDieronInformes = true
-
-        //Si el koder no fue informado, lanzar un error 
-        if(!koderADarInformes.seDieronInformes){
-            error = "No ha sido informado"
+        // Si el koder no fue informado, lanzar un error
+        if (!koderAInformar.seDieronInformes) {
+            error = "No ha sido informado";
         }
-        callbackToHandle(error, koderADarInformes)
-        
-    },3000)
-}
+        callback(error, koderAInformar);
+    }, 3000);
+};
 
-const entrevistar = ( koderAEntrevistar ) => {
-    koderAEntrevistar.seEntrevisto = true
-    return koderAEntrevistar
-}
+const entrevistar = (koderAEntrevistar, callback) => {
+    let error = null;
+    setTimeout(() => {
+        koderAEntrevistar.seEntrevisto = true;
 
-const pagar = ( koderAPagar ) => {
-    koderAPagar.sePago = true
-    return koderAPagar
-}
+        if (!koderAEntrevistar.seEntrevisto) {
+            error = "No se pudo entrevistar";
+        }
 
-const inscribir = ( koderAInscribir ) => {
-    koderAInscribir.seInscribio = true
-    return koderAInscribir
-}
+        callback(error, koderAEntrevistar);
+    }, 2000);
+};
 
-//Si paso koder como tal se mandara el valor por referencia, al usar el spread operator paso por valor sin afectar el valor de la variable 
+const pagar = (koderAPagar, callback) => {
+    let error = null;
+    setTimeout(() => {
+        koderAPagar.sePago = false;
 
-const koderInformado = darInformes({...koder}) //1
+        if (!koderAPagar.sePago) {
+            error = "No se ha pagado";
+        }
 
-const koderEntrevistado = entrevistar({...koderInformado})//2
+        callback(error, koderAPagar);
+    }, 5000);
+};
 
-const koderPago = pagar({...koderEntrevistado})//3
+const inscribir = (koderAInscribir, callback) => {
+   let error = null;
 
-const koderInscrito = inscribir({...koderPago})//4
-console.log("Koder inscrito", koderInscrito)
+   setTimeout(() => {
+       koderAInscribir.seInscribio = true
 
-darInformes({...koder}, (error, koderADarInformes) => {
+       if(!koderAInscribir.seInscribio) {
+           error = "No se pudo inscribir"
+       }
 
-    if(error){
-        console.log(error)
-        return 
+       callback(error, koderAInscribir)
+
+   }, 1000)
+};
+
+/**
+ * Asincronidad -> cuando se hacian varias cosas al mismo tiempo
+ */
+
+
+darInformes({ ...koder }, (error, koderInformado) => {
+    if (error) {
+        console.log("error:", error);
+        return; // Salte
     }
 
-    console.log(koderADarInformes)
-})
+    // Es cuando ya me hizo todo
+    // Aqui se espero, el koder ya tiene informes
+    entrevistar({ ...koderConInformes }, (error, koderEntrevistado) => {
+        if (error) {
+            console.log("error", error);
+            return;
+        }
+
+        // Vamos a pagar
+        pagar({ ...koderEntrevistado }, (error, koderPagado) => {
+            if (error) {
+                console.log("error", error);
+                return;
+            }
+
+            // Inscribirlo
+            inscribir({...koderPagado}, (error, koderInscrito) => {
+                if(error) {
+                    console.log("error", error)
+                    return
+                }
+
+                console.log("Exito", koderInscrito)
+            })
+        });
+    });
+});
+
+
+/***
+ * Pastel
+ * 1 - Leer la receta
+ * 2 - Conseguir los ingredientes
+ * 3 - Preparacion de la masa
+ * 4 - Hornear el pastel
+ * 5 - Decorar el paster
+ */
+
+const pastel = {
+    recetaLeida : false,
+    ingredientesConseguidos: false,
+    masaPreparada: false,
+    pastelHorneado: false,
+    pastelDecorado: false
+}

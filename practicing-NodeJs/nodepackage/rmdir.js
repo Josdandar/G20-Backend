@@ -1,5 +1,5 @@
 const fs = require("fs")
-
+//siempre los imports van arriba del archivo
 // Leer directorio con callback
 // fs.readdir("directorio1", "utf-8", (err, files) => {
 //   if(err) throw err
@@ -35,7 +35,7 @@ const fs = require("fs")
      return
    }
    // La callback es una funcion
-   // A las funciones le podemos en los paramet=ros
+   // A las funciones le podemos poner lo que queramos en los parametros como nombre
  
    // Continuar con que si tenemos archivos
    files.forEach(file => {
